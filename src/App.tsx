@@ -5,7 +5,7 @@ function App() {
   const [day, setDay] = useState<string>();
   const [month, setMonth] = useState<string>();
   const [year, setYear] = useState<string>();
-  const [age, setAge] = useState({ years: 0, days: 0, month: 0 });
+  const [age, setAge] = useState({ years: 0, days: 0, months: 0 });
 
   const calculateAge = () => {
     const present = new Date();
@@ -21,7 +21,9 @@ function App() {
         present.getMonth() - 1,
         birthDate.getDate()
       );
-      days = Math.floor((present - lastMonth) / (24 * 60 * 60 * 1000));
+      days = Math.floor(
+        (present.getTime() - lastMonth.getTime()) / (24 * 60 * 60 * 1000)
+      );
     }
     if (months < 0) {
       years--;
@@ -29,7 +31,7 @@ function App() {
     }
     setAge({
       years,
-      month: months,
+      months,
       days,
     });
   };
@@ -81,7 +83,7 @@ function App() {
           <span className="text-[#864CFF]">{age.years}</span> years
         </div>
         <div className="text-8xl">
-          <span className="text-[#864CFF]">{age.month}</span> months
+          <span className="text-[#864CFF]">{age.months}</span> months
         </div>
         <div className="text-8xl">
           <span className="text-[#864CFF]">{age.days}</span> days
